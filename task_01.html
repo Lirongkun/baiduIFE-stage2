@@ -9,42 +9,42 @@
 	<!--label标签为input元素定义了标记-->
 	<label for="aqi-input">请输入北京今天的空气质量：<input id="aqi-input" type="text" /></label>
 	<button id="button">确认填写</button> 
-    <div>
-    	您输入的值是：<span id="aqi-display">尚无录入</span>
-    </div>
-    <script>
-		/*
-		 *在注释下方写下代码
-		 *给按钮button绑定一个点击事件
-		 *在事件处理函数中
-		 *获取aqi-input输入的值，并显示在aqi-display中
-		*/
-		(function(){
-			//对document.getElementById函数的封装
-			var $ = function(id) {      
-				return document.getElementById(id);	
-			};
-			//isNaN()函数通常用来检测parseFloat()和parseInt()的结果，以判断它们表示的是否是合法的数字,如果是非数值，则这个函数返回的是true,如果是数值，则返回false
-			var handler = function() {
-				var num = parseInt($("aqi-input").value);
-				if (!isNaN(num) && num >  0 && num < 1000) {
-					$("aqi-display").innerHTML = num;
-				} else {
-					alert($("aqi-input").value + "不是有效的数值，请重新输入0-1000的有效整数");	
-				}	
-			};
-			//这里使用了最简单的事件处理函数。DOM0级事件处理程序
-			$("button").onclick = function() {
+  <div>
+  	您输入的值是：<span id="aqi-display">尚无录入</span>
+  </div>
+  <script>
+	/*
+	 *在注释下方写下代码
+	 *给按钮button绑定一个点击事件
+	 *在事件处理函数中
+	 *获取aqi-input输入的值，并显示在aqi-display中
+	*/
+	(function(){
+		//对document.getElementById函数的封装
+		var $ = function(id) {      
+			return document.getElementById(id);	
+		};
+		//isNaN()函数通常用来检测parseFloat()和parseInt()的结果，以判断它们表示的是否是合法的数字,如果是非数值，则这个操作符返回的是true,如果是数值，则返回false
+		var handler = function() {
+			var num = parseInt($("aqi-input").value);
+			if (!isNaN(num) && num >  0 && num < 1000) {
+				$("aqi-display").innerHTML = num;
+			} else {
+				alert($("aqi-input").value + "不是有效的数值，请重新输入0-1000的有效整数");	
+			}	
+		};
+		//这里使用了最简单的事件处理函数。DOM0级事件处理程序
+		$("button").onclick = function() {
+			handler();	
+		}; 
+		//onkeyup和onkeydown事件都是监视键盘的行为，只是触发的时机不同，键盘上的任意键按下的时候会触发keydown事件,当松开键盘上的任意键的时候，会触发keyup事件。
+		$("aqi-input").onkeyup = function(event) {
+		  //在发生keyup和keydown事件时，event对象的keyCode属性中包含一个数字，与键盘上的一个键对应，当event.keyCode == 13时，表示按的是enter键
+			if (event.keyCode === 13){ 
 				handler();	
-			}; 
-			//onkeyup和onkeydown事件都是监视键盘的行为，只是触发的时机不同，键盘上的任意键按下的时候会触发keydown事件,当松开键盘上的任意键的时候，会触发keyup事件。
-			$("aqi-input").onkeyup = function(event) {
-				//在发生keyup和keydown事件时，event对象的keyCode属性中包含一个数字，与键盘上的一个键对应，当event.keyCode == 13时，表示按的是enter键
-				if (event.keyCode === 13){ 
-					handler();	
-				}	
-			};	
-		})();		
+			}	
+		};	
+	})();		
 	</script>
 </body>
 </html>
