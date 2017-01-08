@@ -1,0 +1,17 @@
+#aqi-city-input {
+	margin-left: 32px;	
+}
+div {
+	margin-bottom: 5px;
+}
+table {
+	text-align: center;
+	border-collapse: collapse;
+	margin-top: 30px;	
+}
+table, td {
+	border: 1px solid #128fdc;	
+}
+table td{
+	width: 80px;
+	height: 30px;	

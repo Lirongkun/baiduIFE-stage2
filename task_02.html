@@ -14,37 +14,44 @@
         -->
     </ul>
     <script>
+
 		var aqiData = [
-			["北京",90],
-			["上海",50],
-			["福州",10],
-			["广州",50],
-			["成都",90],
-			["西安",100]		
+			["北京", 90],
+			["上海", 50],
+			["福州", 10],
+			["广州", 50],
+			["成都", 90],
+			["西安", 100]		
 		];
-		(function(){
+
+		(function () {
 			/*
-			 *在注释下方编写代码
-			 *遍历读取aqiData中各个城市的数据
-			 *将空气质量指数大于60的城市显示到aqi-list列表中
+			 * 在注释下方编写代码
+			 * 遍历读取aqiData中各个城市的数据
+			 * 将空气质量指数大于60的城市显示到aqi-list列表中
 			 */
-			 //选取空气质量指数大于60的城市。filter()方法，对数组中的每一项运行给定函数，返回该函数返回true项组成的数组
-			var filterArray = aqiData.filter(function(item){
+ 
+			// 选取空气质量指数大于60的城市。filter()方法，对数组中的每一项运行给定函数，返回该函数返回true的项组成的数组
+			var filterArray = aqiData.filter(function (item, index, array) {
 				return 	item[1] > 60;
 			});
+
 			/*
-			将空气质量指数大于60的城市进行降序排列.对于数值类型，可以使用一个更简单的比较函数
-			function compare(value1,value2) {return value2 - value1},用第二个值减去第一个值(降序)
-			*/
-			function compare(value1,value2) {
+			 * 将空气质量指数大于60的城市进行降序排列.对于数值类型，可以使用一个更简单的比较函数
+			 * function compare(value1,value2) {return value2 - value1},用第二个值减去第一个值(降序)
+			 */
+			function compare(value1, value2) {
 				return value2[1] - value1[1];
 			}
-			var sortCount = filterArray.sort(compare);
-			//添加到ul列表中
+
+			var sortArray = filterArray.sort(compare);
+
+			// 添加到ul列表中
 			var aqiList = document.getElementById("aqi-list");
 			var chineseNums = ["一","二","三","四","五","六","七"];
-			for (var i = 0; i < sortCount.length; i++){
-					aqiList.innerHTML += "<li>第" + chineseNums[i] + "名：" + sortCount[i][0] + "," + sortCount[i][1] + "</li>";
+
+			for (var i = 0; i < sortArray.length; i++) {
+				aqiList.innerHTML += "<li>第" + chineseNums[i] + "名：" + sortArray[i][0] + "," + sortArray[i][1] + "</li>";
 			}
 		})();
 	</script>

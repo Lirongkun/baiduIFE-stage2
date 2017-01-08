@@ -17,81 +17,101 @@
     </ul>
     <ul id="resort">
     	<!--
-        <li>第一名：北京空气质量:<b>90</b></li>	
-        <li>第二名：北京空气质量:<b>90</b></li>	
-        <li>第三名：北京空气质量:<b>90</b></li>	
+	        <li>第一名：北京空气质量:<b>90</b></li>	
+	        <li>第二名：北京空气质量:<b>90</b></li>	
+	        <li>第三名：北京空气质量:<b>90</b></li>	
         -->
     </ul> 
     <button id="sort-btn">排序</button>
     <script>
-			/**
-			 *getData方法
-			 *读取id为source的列表，获取其中城市的名字及城市对应的空气质量
-			 *返回一个数组，格式见函数中示例
-			 */
-			function getData(){
-				/*
-				  data = [
-				  	["北京"，90],
+		/*
+		 *	getData方法
+		 *	读取id为source的列表，获取其中城市的名字及城市对应的空气质量
+		 *	返回一个数组，格式见函数中示例
+		 */
+ 
+		function getData() {
+			/*
+				data = [
+					["北京"，90],
 					["北京"，90]
 					......
-				  ]
-				*/
-				var source = document.getElementById("source");
-				var oLi = source.getElementsByTagName("li");
-				var data = [];
-				for(var i = 0; i < oLi.length; i++){
-					var str = oLi[i].innerHTML;
-					var city = str.substring(0,str.indexOf("空气"));
-					var num = str.substring(str.indexOf("<b>")+3,str.indexOf("</b>"));//str.indexOf("<br>").从字符串中查找给定子字符串的位置。返回的是第一个“<”的位置。
-					data.push([city,num]);	
-				}	
-				return data;		
-			}
-			 /**
-			  *sortAqiData
-			  *按空气质量对data进行从小到大的排序
-			  *返回一个排序后的数组
-			  */
-	        function compare(value1,value2) {
-	            return value1[1] - value2[1];
-	        }
-			function sortAqiData(data){
-			  	data.sort(compare);
-				return data;  	
-			}
-			  /**
-			   *render
-			   *将排好序的城市及空气质量指数，输出显示到id为resort的列表中
-			   *格式见ul中的注释部分
-			   *
-			   */
-		    function render(data){
-				 var resort = document.getElementById("resort");
-				 var chineseNums = ["一","二","三","四","五","六","七","八"];
-				 for(var i = 0; i < data.length; i++){
-					resort.innerHTML += "<li>第" + chineseNums[i] + "名：" + data[i][0] + "空气质量：" + "<b>" + data[i][1] + "</b>" + "</li>";	 
-				}   
-		    }
-            var btnHandler = function () {
-                var aqiData = getData();
-                aqiData = sortAqiData(aqiData);
-                render(aqiData);
-            };
-            //跨浏览器的eventUtil对象，调用它的addHandler方法
-			var eventUtil = {
-				addHandler: function (element,type,handler) {
-					if (element.addEventListener) {
-						element.addEventListener(type,handler,false);
-					} else if (element.attachEvent){
-						element.attachEvent("on" + type,handler);
-					} else {
-						element["on" + type] = handler;
-					}
+				]
+			*/
+
+			var source = document.getElementById("source");
+			var oLi = source.getElementsByTagName("li");
+			var data = [];
+
+			for (var i = 0; i < oLi.length; i++) {
+				var str = oLi[i].innerHTML;
+				var city = str.substring(0, str.indexOf("空气"));
+
+				// str.indexOf("<br>").从字符串中查找给定子字符串的位置，返回的是第一个“<”的位置
+				var num = str.substring(str.indexOf("<b>") + 3, str.indexOf("</b>"));
+				data.push([city, num]);	
+			}	
+
+			return data;		
+		}
+
+		/*
+		 *	sortAqiData
+		 *	按空气质量对data进行从小到大的排序
+		 *	返回一个排序后的数组
+		 */
+
+        function compare(value1, value2) {
+            return value1[1] - value2[1];
+        }
+
+		function sortAqiData(data) {
+		  	data.sort(compare);
+
+			return data;  	
+		}
+
+	    /*
+	     * render
+	     * 将排好序的城市及空气质量指数，输出显示到id为resort的列表中
+	     * 格式见ul中的注释部分
+	     */
+
+	    function render(data) {
+			var resort = document.getElementById("resort");
+			var chineseNums = ["一","二","三","四","五","六","七","八"];
+
+			for (var i = 0; i < data.length; i++) {
+				resort.innerHTML += "<li>第" + chineseNums[i] + "名：" + data[i][0] + "空气质量：" + "<b>" + data[i][1] + "</b>" + "</li>";	 
+			}   
+	    }
+
+        var btnHandler = function () {
+            var aqiData = getData();
+            aqiData = sortAqiData(aqiData);
+            render(aqiData);
+
+            // 在js中设置disabled属性为true,可以变为不可用状态
+            var sortBtn = document.getElementById("sort-btn");
+            sortBtn.disabled = true;
+        };
+
+        // 跨浏览器的eventUtil对象，调用它的addHandler方法
+		var eventUtil = {
+
+			addHandler: function (element, type, handler) {
+
+				if (element.addEventListener) {
+					element.addEventListener(type, handler, false);
+				} else if (element.attachEvent) {
+					element.attachEvent("on" + type, handler);
+				} else {
+					element["on" + type] = handler;
 				}
-			};
-			var sortBtn = document.getElementById("sort-btn");
-			eventUtil.addHandler(sortBtn,"click",btnHandler);
+			}
+		};
+	    var sortBtn = document.getElementById("sort-btn");
+		eventUtil.addHandler(sortBtn, "click", btnHandler);
 	</script>
 </body>
 </html>
